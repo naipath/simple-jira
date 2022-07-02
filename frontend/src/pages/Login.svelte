@@ -3,6 +3,7 @@
     import {AuthenticateReal, IsAuthenticated} from "../../wailsjs/go/main/App.js";
     import {Button, Input} from "agnostic-svelte";
     import {callTracker} from "./../util";
+    import {BrowserOpenURL} from "../../wailsjs/runtime/runtime.js";
 
     const regexpEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const regExpUrl = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
@@ -36,13 +37,17 @@
             loginError = true
         }
     }
+    const openUrl = e => {
+        e.preventDefault()
+        BrowserOpenURL("https://id.atlassian.com/manage-profile/security/api-tokens")
+    }
 </script>
 <main>
     <div>
         <div class="mbe24 text-center">
             <h2>Login with Jira</h2>
             <p>If you need a token go to:
-                <a href="https://id.atlassian.com/manage-profile/security/api-tokens">https://id.atlassian.com/manage-profile/security/api-tokens</a>
+                <a href="https://id.atlassian.com/manage-profile/security/api-tokens" on:click={openUrl}>https://id.atlassian.com/manage-profile/security/api-tokens</a>
             </p>
         </div>
         <section class="mbe24">
