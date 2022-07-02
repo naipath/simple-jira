@@ -13,9 +13,9 @@ const credentialsFileName = ".simple-jira-credentials.json"
 const cacheFileName = ".simple-jira-cache.json"
 
 type LoginCredentials struct {
-	Url          string
-	EmailAddress string
-	Token        string
+	Url          string `json:"url"`
+	EmailAddress string `json:"emailAddress"`
+	Token        string `json:"token"`
 }
 
 type JiraCache struct {

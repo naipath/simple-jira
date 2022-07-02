@@ -1,5 +1,334 @@
+export namespace jirahelper {
+	
+	export class LoginCredentials {
+	    url: string;
+	    emailAddress: string;
+	    token: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new LoginCredentials(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.url = source["url"];
+	        this.emailAddress = source["emailAddress"];
+	        this.token = source["token"];
+	    }
+	}
+
+}
+
 export namespace jira {
 	
+	export class ProjectCategory {
+	    self: string;
+	    id: string;
+	    name: string;
+	    description: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new ProjectCategory(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.self = source["self"];
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.description = source["description"];
+	    }
+	}
+	export class Version {
+	    self?: string;
+	    id?: string;
+	    name?: string;
+	    description?: string;
+	    archived?: boolean;
+	    released?: boolean;
+	    releaseDate?: string;
+	    userReleaseDate?: string;
+	    projectId?: number;
+	    startDate?: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new Version(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.self = source["self"];
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.description = source["description"];
+	        this.archived = source["archived"];
+	        this.released = source["released"];
+	        this.releaseDate = source["releaseDate"];
+	        this.userReleaseDate = source["userReleaseDate"];
+	        this.projectId = source["projectId"];
+	        this.startDate = source["startDate"];
+	    }
+	}
+	export class IssueType {
+	    self?: string;
+	    id?: string;
+	    description?: string;
+	    iconUrl?: string;
+	    name?: string;
+	    subtask?: boolean;
+	    avatarId?: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new IssueType(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.self = source["self"];
+	        this.id = source["id"];
+	        this.description = source["description"];
+	        this.iconUrl = source["iconUrl"];
+	        this.name = source["name"];
+	        this.subtask = source["subtask"];
+	        this.avatarId = source["avatarId"];
+	    }
+	}
+	export class ProjectComponent {
+	    self: string;
+	    id: string;
+	    name: string;
+	    description: string;
+	    // Go type: User
+	    lead?: any;
+	    assigneeType: string;
+	    // Go type: User
+	    assignee: any;
+	    realAssigneeType: string;
+	    // Go type: User
+	    realAssignee: any;
+	    isAssigneeTypeValid: boolean;
+	    project: string;
+	    projectId: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new ProjectComponent(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.self = source["self"];
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.description = source["description"];
+	        this.lead = this.convertValues(source["lead"], null);
+	        this.assigneeType = source["assigneeType"];
+	        this.assignee = this.convertValues(source["assignee"], null);
+	        this.realAssigneeType = source["realAssigneeType"];
+	        this.realAssignee = this.convertValues(source["realAssignee"], null);
+	        this.isAssigneeTypeValid = source["isAssigneeTypeValid"];
+	        this.project = source["project"];
+	        this.projectId = source["projectId"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class AvatarUrls {
+	    48x48?: string;
+	    24x24?: string;
+	    16x16?: string;
+	    32x32?: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new AvatarUrls(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.48x48 = source["48x48"];
+	        this.24x24 = source["24x24"];
+	        this.16x16 = source["16x16"];
+	        this.32x32 = source["32x32"];
+	    }
+	}
+	export class User {
+	    self?: string;
+	    accountId?: string;
+	    accountType?: string;
+	    name?: string;
+	    key?: string;
+	    emailAddress?: string;
+	    // Go type: AvatarUrls
+	    avatarUrls?: any;
+	    displayName?: string;
+	    active?: boolean;
+	    timeZone?: string;
+	    locale?: string;
+	    applicationKeys?: string[];
+	
+	    static createFrom(source: any = {}) {
+	        return new User(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.self = source["self"];
+	        this.accountId = source["accountId"];
+	        this.accountType = source["accountType"];
+	        this.name = source["name"];
+	        this.key = source["key"];
+	        this.emailAddress = source["emailAddress"];
+	        this.avatarUrls = this.convertValues(source["avatarUrls"], null);
+	        this.displayName = source["displayName"];
+	        this.active = source["active"];
+	        this.timeZone = source["timeZone"];
+	        this.locale = source["locale"];
+	        this.applicationKeys = source["applicationKeys"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class Project {
+	    expand?: string;
+	    self?: string;
+	    id?: string;
+	    key?: string;
+	    description?: string;
+	    // Go type: User
+	    lead?: any;
+	    components?: ProjectComponent[];
+	    issueTypes?: IssueType[];
+	    url?: string;
+	    email?: string;
+	    assigneeType?: string;
+	    versions?: Version[];
+	    name?: string;
+	    roles?: {[key: string]: string};
+	    // Go type: AvatarUrls
+	    avatarUrls?: any;
+	    // Go type: ProjectCategory
+	    projectCategory?: any;
+	
+	    static createFrom(source: any = {}) {
+	        return new Project(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.expand = source["expand"];
+	        this.self = source["self"];
+	        this.id = source["id"];
+	        this.key = source["key"];
+	        this.description = source["description"];
+	        this.lead = this.convertValues(source["lead"], null);
+	        this.components = this.convertValues(source["components"], ProjectComponent);
+	        this.issueTypes = this.convertValues(source["issueTypes"], IssueType);
+	        this.url = source["url"];
+	        this.email = source["email"];
+	        this.assigneeType = source["assigneeType"];
+	        this.versions = this.convertValues(source["versions"], Version);
+	        this.name = source["name"];
+	        this.roles = source["roles"];
+	        this.avatarUrls = this.convertValues(source["avatarUrls"], null);
+	        this.projectCategory = this.convertValues(source["projectCategory"], null);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class Sprint {
+	    id: number;
+	    name: string;
+	    // Go type: time.Time
+	    completeDate?: any;
+	    // Go type: time.Time
+	    endDate?: any;
+	    // Go type: time.Time
+	    startDate?: any;
+	    originBoardId: number;
+	    self: string;
+	    state: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new Sprint(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.completeDate = this.convertValues(source["completeDate"], null);
+	        this.endDate = this.convertValues(source["endDate"], null);
+	        this.startDate = this.convertValues(source["startDate"], null);
+	        this.originBoardId = source["originBoardId"];
+	        this.self = source["self"];
+	        this.state = source["state"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
 	export class Board {
 	    id?: number;
 	    self?: string;
@@ -212,53 +541,6 @@ export namespace jira {
 	        this.id = source["id"];
 	        this.key = source["key"];
 	    }
-	}
-	export class Sprint {
-	    id: number;
-	    name: string;
-	    // Go type: time.Time
-	    completeDate?: any;
-	    // Go type: time.Time
-	    endDate?: any;
-	    // Go type: time.Time
-	    startDate?: any;
-	    originBoardId: number;
-	    self: string;
-	    state: string;
-	
-	    static createFrom(source: any = {}) {
-	        return new Sprint(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.id = source["id"];
-	        this.name = source["name"];
-	        this.completeDate = this.convertValues(source["completeDate"], null);
-	        this.endDate = this.convertValues(source["endDate"], null);
-	        this.startDate = this.convertValues(source["startDate"], null);
-	        this.originBoardId = source["originBoardId"];
-	        this.self = source["self"];
-	        this.state = source["state"];
-	    }
-	
-		convertValues(a: any, classs: any, asMap: boolean = false): any {
-		    if (!a) {
-		        return a;
-		    }
-		    if (a.slice) {
-		        return (a as any[]).map(elem => this.convertValues(elem, classs));
-		    } else if ("object" === typeof a) {
-		        if (asMap) {
-		            for (const key of Object.keys(a)) {
-		                a[key] = new classs(a[key]);
-		            }
-		            return a;
-		        }
-		        return new classs(a);
-		    }
-		    return a;
-		}
 	}
 	export class Epic {
 	    id: number;
@@ -901,267 +1183,6 @@ export namespace jira {
 	        this.name = source["name"];
 	    }
 	}
-	export class ProjectCategory {
-	    self: string;
-	    id: string;
-	    name: string;
-	    description: string;
-	
-	    static createFrom(source: any = {}) {
-	        return new ProjectCategory(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.self = source["self"];
-	        this.id = source["id"];
-	        this.name = source["name"];
-	        this.description = source["description"];
-	    }
-	}
-	export class Version {
-	    self?: string;
-	    id?: string;
-	    name?: string;
-	    description?: string;
-	    archived?: boolean;
-	    released?: boolean;
-	    releaseDate?: string;
-	    userReleaseDate?: string;
-	    projectId?: number;
-	    startDate?: string;
-	
-	    static createFrom(source: any = {}) {
-	        return new Version(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.self = source["self"];
-	        this.id = source["id"];
-	        this.name = source["name"];
-	        this.description = source["description"];
-	        this.archived = source["archived"];
-	        this.released = source["released"];
-	        this.releaseDate = source["releaseDate"];
-	        this.userReleaseDate = source["userReleaseDate"];
-	        this.projectId = source["projectId"];
-	        this.startDate = source["startDate"];
-	    }
-	}
-	export class ProjectComponent {
-	    self: string;
-	    id: string;
-	    name: string;
-	    description: string;
-	    // Go type: User
-	    lead?: any;
-	    assigneeType: string;
-	    // Go type: User
-	    assignee: any;
-	    realAssigneeType: string;
-	    // Go type: User
-	    realAssignee: any;
-	    isAssigneeTypeValid: boolean;
-	    project: string;
-	    projectId: number;
-	
-	    static createFrom(source: any = {}) {
-	        return new ProjectComponent(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.self = source["self"];
-	        this.id = source["id"];
-	        this.name = source["name"];
-	        this.description = source["description"];
-	        this.lead = this.convertValues(source["lead"], null);
-	        this.assigneeType = source["assigneeType"];
-	        this.assignee = this.convertValues(source["assignee"], null);
-	        this.realAssigneeType = source["realAssigneeType"];
-	        this.realAssignee = this.convertValues(source["realAssignee"], null);
-	        this.isAssigneeTypeValid = source["isAssigneeTypeValid"];
-	        this.project = source["project"];
-	        this.projectId = source["projectId"];
-	    }
-	
-		convertValues(a: any, classs: any, asMap: boolean = false): any {
-		    if (!a) {
-		        return a;
-		    }
-		    if (a.slice) {
-		        return (a as any[]).map(elem => this.convertValues(elem, classs));
-		    } else if ("object" === typeof a) {
-		        if (asMap) {
-		            for (const key of Object.keys(a)) {
-		                a[key] = new classs(a[key]);
-		            }
-		            return a;
-		        }
-		        return new classs(a);
-		    }
-		    return a;
-		}
-	}
-	export class AvatarUrls {
-	    48x48?: string;
-	    24x24?: string;
-	    16x16?: string;
-	    32x32?: string;
-	
-	    static createFrom(source: any = {}) {
-	        return new AvatarUrls(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.48x48 = source["48x48"];
-	        this.24x24 = source["24x24"];
-	        this.16x16 = source["16x16"];
-	        this.32x32 = source["32x32"];
-	    }
-	}
-	export class User {
-	    self?: string;
-	    accountId?: string;
-	    accountType?: string;
-	    name?: string;
-	    key?: string;
-	    emailAddress?: string;
-	    // Go type: AvatarUrls
-	    avatarUrls?: any;
-	    displayName?: string;
-	    active?: boolean;
-	    timeZone?: string;
-	    locale?: string;
-	    applicationKeys?: string[];
-	
-	    static createFrom(source: any = {}) {
-	        return new User(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.self = source["self"];
-	        this.accountId = source["accountId"];
-	        this.accountType = source["accountType"];
-	        this.name = source["name"];
-	        this.key = source["key"];
-	        this.emailAddress = source["emailAddress"];
-	        this.avatarUrls = this.convertValues(source["avatarUrls"], null);
-	        this.displayName = source["displayName"];
-	        this.active = source["active"];
-	        this.timeZone = source["timeZone"];
-	        this.locale = source["locale"];
-	        this.applicationKeys = source["applicationKeys"];
-	    }
-	
-		convertValues(a: any, classs: any, asMap: boolean = false): any {
-		    if (!a) {
-		        return a;
-		    }
-		    if (a.slice) {
-		        return (a as any[]).map(elem => this.convertValues(elem, classs));
-		    } else if ("object" === typeof a) {
-		        if (asMap) {
-		            for (const key of Object.keys(a)) {
-		                a[key] = new classs(a[key]);
-		            }
-		            return a;
-		        }
-		        return new classs(a);
-		    }
-		    return a;
-		}
-	}
-	export class Project {
-	    expand?: string;
-	    self?: string;
-	    id?: string;
-	    key?: string;
-	    description?: string;
-	    // Go type: User
-	    lead?: any;
-	    components?: ProjectComponent[];
-	    issueTypes?: IssueType[];
-	    url?: string;
-	    email?: string;
-	    assigneeType?: string;
-	    versions?: Version[];
-	    name?: string;
-	    roles?: {[key: string]: string};
-	    // Go type: AvatarUrls
-	    avatarUrls?: any;
-	    // Go type: ProjectCategory
-	    projectCategory?: any;
-	
-	    static createFrom(source: any = {}) {
-	        return new Project(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.expand = source["expand"];
-	        this.self = source["self"];
-	        this.id = source["id"];
-	        this.key = source["key"];
-	        this.description = source["description"];
-	        this.lead = this.convertValues(source["lead"], null);
-	        this.components = this.convertValues(source["components"], ProjectComponent);
-	        this.issueTypes = this.convertValues(source["issueTypes"], IssueType);
-	        this.url = source["url"];
-	        this.email = source["email"];
-	        this.assigneeType = source["assigneeType"];
-	        this.versions = this.convertValues(source["versions"], Version);
-	        this.name = source["name"];
-	        this.roles = source["roles"];
-	        this.avatarUrls = this.convertValues(source["avatarUrls"], null);
-	        this.projectCategory = this.convertValues(source["projectCategory"], null);
-	    }
-	
-		convertValues(a: any, classs: any, asMap: boolean = false): any {
-		    if (!a) {
-		        return a;
-		    }
-		    if (a.slice) {
-		        return (a as any[]).map(elem => this.convertValues(elem, classs));
-		    } else if ("object" === typeof a) {
-		        if (asMap) {
-		            for (const key of Object.keys(a)) {
-		                a[key] = new classs(a[key]);
-		            }
-		            return a;
-		        }
-		        return new classs(a);
-		    }
-		    return a;
-		}
-	}
-	export class IssueType {
-	    self?: string;
-	    id?: string;
-	    description?: string;
-	    iconUrl?: string;
-	    name?: string;
-	    subtask?: boolean;
-	    avatarId?: number;
-	
-	    static createFrom(source: any = {}) {
-	        return new IssueType(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.self = source["self"];
-	        this.id = source["id"];
-	        this.description = source["description"];
-	        this.iconUrl = source["iconUrl"];
-	        this.name = source["name"];
-	        this.subtask = source["subtask"];
-	        this.avatarId = source["avatarId"];
-	    }
-	}
 	export class IssueFields {
 	    expand?: string;
 	    // Go type: IssueType
@@ -1334,7 +1355,6 @@ export namespace jira {
 		    return a;
 		}
 	}
-	
 
 }
 
