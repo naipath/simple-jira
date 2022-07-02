@@ -1,11 +1,12 @@
 # Simple jira
 
-## About
-
 The aims of this project are:
 
-- Simplified jira interface
-- Aggressive caching off calls to increase speed
+- Simplified Jira interaction
+- Fast
+
+![Simple jira](simple-jira.png "Simple jira")
+
 
 ## Live Development
 
@@ -33,6 +34,7 @@ To build a redistributable, production mode package, use `wails build`.
 - [x] Caching of all calls
 - [x] Jira call metrics
 - [x] Basic back functionality
+- [x] Dark mode based on OS
 - [ ] Enhance back functionality
 - [ ] Adding comments to Issue
 - [ ] Improved rendering of summary + comments page
