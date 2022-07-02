@@ -39,7 +39,7 @@
 </script>
 <main>
     <div>
-        <div class="mbe24 center">
+        <div class="mbe24 text-center">
             <h2>Login with Jira</h2>
             <p>If you need a token go to:
                 <a href="https://id.atlassian.com/manage-profile/security/api-tokens">https://id.atlassian.com/manage-profile/security/api-tokens</a>
@@ -74,7 +74,7 @@
         justify-content: center
     }
 
-    .center {
+    .text-center {
         text-align: center
     }
 

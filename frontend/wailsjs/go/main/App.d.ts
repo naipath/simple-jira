@@ -3,35 +3,33 @@
 import {jira} from '../models';
 import {jirahelper} from '../models';
 
-export function RetrieveDashboardsForProjectCached(arg1:string):Promise<Array<jira.Board>>;
-
-export function RetrieveProjectsCached():Promise<jira.ProjectList>;
-
-export function SearchIssues(arg1:string):Promise<Array<jira.Issue>>;
-
-export function RetrieveDashboardsForProject(arg1:string):Promise<Array<jira.Board>>;
-
 export function GetBoards():Promise<Array<jira.Board>>;
-
-export function IssueDetails(arg1:string):Promise<jira.Issue>;
-
-export function LogOut():void;
-
-export function AuthenticateReal(arg1:jirahelper.LoginCredentials):void;
-
-export function GetBoardsCached():Promise<Array<jira.Board>>;
 
 export function GetFavourites():Promise<any>;
 
+export function IssueDetails(arg1:string):Promise<jira.Issue>;
+
 export function RetrieveBoardDetails(arg1:number):Promise<jira.Board>;
 
-export function RetrieveProjectCached(arg1:string):Promise<jira.Project>;
+export function SearchIssues(arg1:string):Promise<Array<jira.Issue>>;
+
+export function AuthenticateReal(arg1:jirahelper.LoginCredentials):void;
 
 export function RetrieveProjects():Promise<jira.ProjectList>;
 
-export function RetrieveSprint(arg1:number):Promise<Array<jira.Issue>>;
+export function RetrieveProjectsCached():Promise<jira.ProjectList>;
 
-export function TryLoggingWithPreviousCredentials():void;
+export function LogOut():void;
+
+export function GetBoardsCached():Promise<Array<jira.Board>>;
+
+export function RetrieveDashboardsForProject(arg1:string):Promise<Array<jira.Board>>;
+
+export function RetrieveDashboardsForProjectCached(arg1:string):Promise<Array<jira.Board>>;
+
+export function RetrieveProject(arg1:string):Promise<jira.Project>;
+
+export function RetrieveSprintsForBoard(arg1:string):Promise<Array<jira.Sprint>>;
 
 export function AddFavourite(arg1:string,arg2:string):void;
 
@@ -41,12 +39,14 @@ export function RemoveFavourite(arg1:string):void;
 
 export function RetrieveBoardDetailsCached(arg1:number):Promise<jira.Board>;
 
-export function RetrieveProject(arg1:string):Promise<jira.Project>;
+export function RetrieveProjectCached(arg1:string):Promise<jira.Project>;
+
+export function RetrieveSprint(arg1:number):Promise<Array<jira.Issue>>;
 
 export function RetrieveSprintCached(arg1:number):Promise<Array<jira.Issue>>;
-
-export function RetrieveSprintsForBoard(arg1:string):Promise<Array<jira.Sprint>>;
 
 export function RetrieveSprintsForBoardCached(arg1:string):Promise<Array<jira.Sprint>>;
 
 export function IsAuthenticated():Promise<boolean>;
+
+export function TryLoggingWithPreviousCredentials():void;

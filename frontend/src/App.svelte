@@ -53,7 +53,7 @@
 
 <Route path="/app/*">
     <Header isSticky>
-        <HeaderNav css="nav-overrides">
+        <HeaderNav>
             <HeaderNavItem><a href="/app">Home</a></HeaderNavItem>
             <HeaderNavItem><a href="/app/projects">Projects</a></HeaderNavItem>
             <HeaderNavItem><a href="/app/boards">Boards</a></HeaderNavItem>
