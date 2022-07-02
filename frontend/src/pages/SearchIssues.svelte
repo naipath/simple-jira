@@ -1,6 +1,6 @@
 <script>
     import {Button, Card, Input, Tag} from "agnostic-svelte";
-    import {SearchIssues} from "../../wailsjs/go/main/App.js";
+    import {SearchIssues} from "../../wailsjs/go/jirahelper/JiraHelper.js";
     import {callTracker} from "./../util.js";
     import Page from "../components/Page.svelte";
 

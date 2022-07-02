@@ -1,10 +1,10 @@
 <script>
-    import {meta, router} from "tinro"
+    import {meta} from "tinro"
     import {onMount} from "svelte";
     import {callTracker} from "./../util.js";
     import {Card, Tag} from "agnostic-svelte";
     import LoadingScreen from "./../components/LoadingScreen.svelte";
-    import {RetrieveSprint, RetrieveSprintCached} from "../../wailsjs/go/main/App.js";
+    import {RetrieveSprint, RetrieveSprintCached} from "../../wailsjs/go/jirahelper/JiraHelper.js";
     import Page from "../components/Page.svelte";
 
     export let sprintId

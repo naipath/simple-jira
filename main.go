@@ -1,7 +1,9 @@
 package main
 
 import (
+	"context"
 	"embed"
+	"github.com/naipath/simple-jira-app/jirahelper"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"github.com/wailsapp/wails/v2/pkg/logger"
@@ -24,14 +26,21 @@ func main() {
 	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 
 	app := NewApp()
+	jiraHelper := jirahelper.NewJiraHelper()
 
 	err := wails.Run(&options.App{
-		LogLevel:   logger.INFO,
-		Title:      "Simple Jira",
-		Assets:     assets,
-		OnStartup:  app.startup,
-		OnShutdown: app.shutdown,
-		Bind:       []interface{}{app},
+		LogLevel: logger.INFO,
+		Title:    "Simple Jira",
+		Assets:   assets,
+		OnStartup: func(ctx context.Context) {
+			app.startup(ctx)
+			jiraHelper.Startup(ctx)
+		},
+		OnShutdown: func(ctx context.Context) {
+			app.shutdown()
+			jiraHelper.ShutDown()
+		},
+		Bind: []interface{}{app, jiraHelper},
 		Mac: &mac.Options{
 			About: &mac.AboutInfo{
 				Title:   "Simple-jira",

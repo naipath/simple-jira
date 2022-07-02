@@ -2,7 +2,7 @@
     import {Header, HeaderNav, HeaderNavItem} from 'agnostic-svelte';
     import {onMount} from 'svelte';
     import {Route, router} from 'tinro';
-    import {IsAuthenticated, LogOut, TryLoggingWithPreviousCredentials} from '../wailsjs/go/main/App.js'
+    import {IsAuthenticated, LogOut, TryLoggingWithPreviousCredentials} from '../wailsjs/go/jirahelper/JiraHelper.js'
     import Boards from "./pages/Boards.svelte";
     import {LogPrint} from "../wailsjs/runtime/runtime.js";
     import Login from "./pages/Login.svelte";

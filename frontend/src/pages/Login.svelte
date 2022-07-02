@@ -1,6 +1,6 @@
 <script>
     import {router} from "tinro"
-    import {AuthenticateReal, IsAuthenticated} from "../../wailsjs/go/main/App.js";
+    import {AuthenticateReal, IsAuthenticated} from "../../wailsjs/go/jirahelper/JiraHelper.js";
     import {Button, Input} from "agnostic-svelte";
     import {callTracker} from "./../util";
     import {BrowserOpenURL} from "../../wailsjs/runtime/runtime.js";

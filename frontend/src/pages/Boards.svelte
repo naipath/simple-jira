@@ -1,5 +1,5 @@
 <script>
-    import {GetBoards, GetBoardsCached} from "../../wailsjs/go/main/App.js";
+    import {GetBoards, GetBoardsCached} from "../../wailsjs/go/jirahelper/JiraHelper.js";
     import {callTracker, groupArr} from "./../util.js";
     import {onMount} from "svelte";
     import Page from "../components/Page.svelte";

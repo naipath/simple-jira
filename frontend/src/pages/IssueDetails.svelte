@@ -2,7 +2,7 @@
     import {meta} from "tinro";
     import {onMount} from "svelte";
     import LoadingScreen from "./../components/LoadingScreen.svelte";
-    import {IssueDetails, IssueDetailsCached} from "../../wailsjs/go/main/App.js";
+    import {IssueDetails, IssueDetailsCached} from "../../wailsjs/go/jirahelper/JiraHelper.js";
     import {Divider} from "agnostic-svelte";
     import {callTracker} from "./../util.js";
     import Page from "../components/Page.svelte";

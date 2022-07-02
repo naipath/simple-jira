@@ -1,7 +1,7 @@
 <script>
     import {onMount} from "svelte";
     import {callTracker, groupArr} from "./../util.js";
-    import {RetrieveProjects, RetrieveProjectsCached} from "../../wailsjs/go/main/App.js";
+    import {RetrieveProjects, RetrieveProjectsCached} from "../../wailsjs/go/jirahelper/JiraHelper.js";
     import Page from "../components/Page.svelte";
 
     let projects = []

@@ -6,7 +6,7 @@
         RetrieveBoardDetailsCached,
         RetrieveSprintsForBoard,
         RetrieveSprintsForBoardCached
-    } from "../../wailsjs/go/main/App.js";
+    } from "../../wailsjs/go/jirahelper/JiraHelper.js";
     import LoadingScreen from "./../components/LoadingScreen.svelte";
     import {meta} from "tinro";
     import Page from "../components/Page.svelte";
