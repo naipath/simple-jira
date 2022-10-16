@@ -19,9 +19,10 @@
     onMount(async () => retrieveBoardDetails())
 
     const groupSprints = (result) => {
-        sprints = result.filter(sp => sp.state === 'active');
-        futureSprints = result.filter(sp => sp.state === 'future');
+        sprints = result.filter(sp => sp.state === 'active')
+        futureSprints = result.filter(sp => sp.state === 'future')
         completedSprints = result.filter(sp => sp.state !== 'future' && sp.state !== 'active')
+            .sort((a, b) => a.startDate.localeCompare(b.startDate)).reverse()
     }
 
     const retrieveBoardDetails = async () => {
