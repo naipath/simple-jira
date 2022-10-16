@@ -1,24 +1,3 @@
-export namespace jirahelper {
-	
-	export class LoginCredentials {
-	    url: string;
-	    emailAddress: string;
-	    token: string;
-	
-	    static createFrom(source: any = {}) {
-	        return new LoginCredentials(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.url = source["url"];
-	        this.emailAddress = source["emailAddress"];
-	        this.token = source["token"];
-	    }
-	}
-
-}
-
 export namespace jira {
 	
 	export class ProjectCategory {
@@ -98,14 +77,11 @@ export namespace jira {
 	    id: string;
 	    name: string;
 	    description: string;
-	    // Go type: User
-	    lead?: any;
+	    lead?: User;
 	    assigneeType: string;
-	    // Go type: User
-	    assignee: any;
+	    assignee: User;
 	    realAssigneeType: string;
-	    // Go type: User
-	    realAssignee: any;
+	    realAssignee: User;
 	    isAssigneeTypeValid: boolean;
 	    project: string;
 	    projectId: number;
@@ -120,11 +96,11 @@ export namespace jira {
 	        this.id = source["id"];
 	        this.name = source["name"];
 	        this.description = source["description"];
-	        this.lead = this.convertValues(source["lead"], null);
+	        this.lead = this.convertValues(source["lead"], User);
 	        this.assigneeType = source["assigneeType"];
-	        this.assignee = this.convertValues(source["assignee"], null);
+	        this.assignee = this.convertValues(source["assignee"], User);
 	        this.realAssigneeType = source["realAssigneeType"];
-	        this.realAssignee = this.convertValues(source["realAssignee"], null);
+	        this.realAssignee = this.convertValues(source["realAssignee"], User);
 	        this.isAssigneeTypeValid = source["isAssigneeTypeValid"];
 	        this.project = source["project"];
 	        this.projectId = source["projectId"];
@@ -173,8 +149,7 @@ export namespace jira {
 	    name?: string;
 	    key?: string;
 	    emailAddress?: string;
-	    // Go type: AvatarUrls
-	    avatarUrls?: any;
+	    avatarUrls?: AvatarUrls;
 	    displayName?: string;
 	    active?: boolean;
 	    timeZone?: string;
@@ -193,7 +168,7 @@ export namespace jira {
 	        this.name = source["name"];
 	        this.key = source["key"];
 	        this.emailAddress = source["emailAddress"];
-	        this.avatarUrls = this.convertValues(source["avatarUrls"], null);
+	        this.avatarUrls = this.convertValues(source["avatarUrls"], AvatarUrls);
 	        this.displayName = source["displayName"];
 	        this.active = source["active"];
 	        this.timeZone = source["timeZone"];
@@ -225,8 +200,7 @@ export namespace jira {
 	    id?: string;
 	    key?: string;
 	    description?: string;
-	    // Go type: User
-	    lead?: any;
+	    lead?: User;
 	    components?: ProjectComponent[];
 	    issueTypes?: IssueType[];
 	    url?: string;
@@ -235,10 +209,8 @@ export namespace jira {
 	    versions?: Version[];
 	    name?: string;
 	    roles?: {[key: string]: string};
-	    // Go type: AvatarUrls
-	    avatarUrls?: any;
-	    // Go type: ProjectCategory
-	    projectCategory?: any;
+	    avatarUrls?: AvatarUrls;
+	    projectCategory?: ProjectCategory;
 	
 	    static createFrom(source: any = {}) {
 	        return new Project(source);
@@ -251,7 +223,7 @@ export namespace jira {
 	        this.id = source["id"];
 	        this.key = source["key"];
 	        this.description = source["description"];
-	        this.lead = this.convertValues(source["lead"], null);
+	        this.lead = this.convertValues(source["lead"], User);
 	        this.components = this.convertValues(source["components"], ProjectComponent);
 	        this.issueTypes = this.convertValues(source["issueTypes"], IssueType);
 	        this.url = source["url"];
@@ -260,8 +232,8 @@ export namespace jira {
 	        this.versions = this.convertValues(source["versions"], Version);
 	        this.name = source["name"];
 	        this.roles = source["roles"];
-	        this.avatarUrls = this.convertValues(source["avatarUrls"], null);
-	        this.projectCategory = this.convertValues(source["projectCategory"], null);
+	        this.avatarUrls = this.convertValues(source["avatarUrls"], AvatarUrls);
+	        this.projectCategory = this.convertValues(source["projectCategory"], ProjectCategory);
 	    }
 	
 		convertValues(a: any, classs: any, asMap: boolean = false): any {
@@ -282,73 +254,7 @@ export namespace jira {
 		    return a;
 		}
 	}
-	export class Sprint {
-	    id: number;
-	    name: string;
-	    // Go type: time.Time
-	    completeDate?: any;
-	    // Go type: time.Time
-	    endDate?: any;
-	    // Go type: time.Time
-	    startDate?: any;
-	    originBoardId: number;
-	    self: string;
-	    state: string;
 	
-	    static createFrom(source: any = {}) {
-	        return new Sprint(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.id = source["id"];
-	        this.name = source["name"];
-	        this.completeDate = this.convertValues(source["completeDate"], null);
-	        this.endDate = this.convertValues(source["endDate"], null);
-	        this.startDate = this.convertValues(source["startDate"], null);
-	        this.originBoardId = source["originBoardId"];
-	        this.self = source["self"];
-	        this.state = source["state"];
-	    }
-	
-		convertValues(a: any, classs: any, asMap: boolean = false): any {
-		    if (!a) {
-		        return a;
-		    }
-		    if (a.slice) {
-		        return (a as any[]).map(elem => this.convertValues(elem, classs));
-		    } else if ("object" === typeof a) {
-		        if (asMap) {
-		            for (const key of Object.keys(a)) {
-		                a[key] = new classs(a[key]);
-		            }
-		            return a;
-		        }
-		        return new classs(a);
-		    }
-		    return a;
-		}
-	}
-	export class Board {
-	    id?: number;
-	    self?: string;
-	    name?: string;
-	    type?: string;
-	    filterId?: number;
-	
-	    static createFrom(source: any = {}) {
-	        return new Board(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.id = source["id"];
-	        this.self = source["self"];
-	        this.name = source["name"];
-	        this.type = source["type"];
-	        this.filterId = source["filterId"];
-	    }
-	}
 	export class TransitionField {
 	    required: boolean;
 	
@@ -364,8 +270,7 @@ export namespace jira {
 	export class Transition {
 	    id: string;
 	    name: string;
-	    // Go type: Status
-	    to: any;
+	    to: Status;
 	    fields: {[key: string]: TransitionField};
 	
 	    static createFrom(source: any = {}) {
@@ -376,7 +281,7 @@ export namespace jira {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.id = source["id"];
 	        this.name = source["name"];
-	        this.to = this.convertValues(source["to"], null);
+	        this.to = this.convertValues(source["to"], Status);
 	        this.fields = this.convertValues(source["fields"], TransitionField, true);
 	    }
 	
@@ -422,8 +327,7 @@ export namespace jira {
 	}
 	export class ChangelogHistory {
 	    id: string;
-	    // Go type: User
-	    author: any;
+	    author: User;
 	    created: string;
 	    items: ChangelogItems[];
 	
@@ -434,7 +338,7 @@ export namespace jira {
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.id = source["id"];
-	        this.author = this.convertValues(source["author"], null);
+	        this.author = this.convertValues(source["author"], User);
 	        this.created = source["created"];
 	        this.items = this.convertValues(source["items"], ChangelogItems);
 	    }
@@ -492,8 +396,7 @@ export namespace jira {
 	    created?: string;
 	    duedate?: string;
 	    updated?: string;
-	    // Go type: Comments
-	    comment?: any;
+	    comment?: Comments;
 	    description?: string;
 	
 	    static createFrom(source: any = {}) {
@@ -506,7 +409,7 @@ export namespace jira {
 	        this.created = source["created"];
 	        this.duedate = source["duedate"];
 	        this.updated = source["updated"];
-	        this.comment = this.convertValues(source["comment"], null);
+	        this.comment = this.convertValues(source["comment"], Comments);
 	        this.description = source["description"];
 	    }
 	
@@ -542,6 +445,53 @@ export namespace jira {
 	        this.key = source["key"];
 	    }
 	}
+	export class Sprint {
+	    id: number;
+	    name: string;
+	    // Go type: time.Time
+	    completeDate?: any;
+	    // Go type: time.Time
+	    endDate?: any;
+	    // Go type: time.Time
+	    startDate?: any;
+	    originBoardId: number;
+	    self: string;
+	    state: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new Sprint(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.completeDate = this.convertValues(source["completeDate"], null);
+	        this.endDate = this.convertValues(source["endDate"], null);
+	        this.startDate = this.convertValues(source["startDate"], null);
+	        this.originBoardId = source["originBoardId"];
+	        this.self = source["self"];
+	        this.state = source["state"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
 	export class Epic {
 	    id: number;
 	    key: string;
@@ -568,8 +518,7 @@ export namespace jira {
 	    self?: string;
 	    id?: string;
 	    filename?: string;
-	    // Go type: User
-	    author?: any;
+	    author?: User;
 	    created?: string;
 	    size?: number;
 	    mimeType?: string;
@@ -585,7 +534,7 @@ export namespace jira {
 	        this.self = source["self"];
 	        this.id = source["id"];
 	        this.filename = source["filename"];
-	        this.author = this.convertValues(source["author"], null);
+	        this.author = this.convertValues(source["author"], User);
 	        this.created = source["created"];
 	        this.size = source["size"];
 	        this.mimeType = source["mimeType"];
@@ -615,8 +564,7 @@ export namespace jira {
 	    id: string;
 	    key: string;
 	    self: string;
-	    // Go type: IssueFields
-	    fields: any;
+	    fields: IssueFields;
 	
 	    static createFrom(source: any = {}) {
 	        return new Subtasks(source);
@@ -627,7 +575,7 @@ export namespace jira {
 	        this.id = source["id"];
 	        this.key = source["key"];
 	        this.self = source["self"];
-	        this.fields = this.convertValues(source["fields"], null);
+	        this.fields = this.convertValues(source["fields"], IssueFields);
 	    }
 	
 		convertValues(a: any, classs: any, asMap: boolean = false): any {
@@ -756,11 +704,9 @@ export namespace jira {
 	    id?: string;
 	    self?: string;
 	    name?: string;
-	    // Go type: User
-	    author?: any;
+	    author?: User;
 	    body?: string;
-	    // Go type: User
-	    updateAuthor?: any;
+	    updateAuthor?: User;
 	    updated?: string;
 	    created?: string;
 	    // Go type: CommentVisibility
@@ -775,9 +721,9 @@ export namespace jira {
 	        this.id = source["id"];
 	        this.self = source["self"];
 	        this.name = source["name"];
-	        this.author = this.convertValues(source["author"], null);
+	        this.author = this.convertValues(source["author"], User);
 	        this.body = source["body"];
-	        this.updateAuthor = this.convertValues(source["updateAuthor"], null);
+	        this.updateAuthor = this.convertValues(source["updateAuthor"], User);
 	        this.updated = source["updated"];
 	        this.created = source["created"];
 	        this.visibility = this.convertValues(source["visibility"], null);
@@ -879,10 +825,8 @@ export namespace jira {
 	}
 	export class WorklogRecord {
 	    self?: string;
-	    // Go type: User
-	    author?: any;
-	    // Go type: User
-	    updateAuthor?: any;
+	    author?: User;
+	    updateAuthor?: User;
 	    comment?: string;
 	    // Go type: Time
 	    created?: any;
@@ -903,8 +847,8 @@ export namespace jira {
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.self = source["self"];
-	        this.author = this.convertValues(source["author"], null);
-	        this.updateAuthor = this.convertValues(source["updateAuthor"], null);
+	        this.author = this.convertValues(source["author"], User);
+	        this.updateAuthor = this.convertValues(source["updateAuthor"], User);
 	        this.comment = source["comment"];
 	        this.created = this.convertValues(source["created"], null);
 	        this.updated = this.convertValues(source["updated"], null);
@@ -1034,8 +978,7 @@ export namespace jira {
 	    iconUrl: string;
 	    name: string;
 	    id: string;
-	    // Go type: StatusCategory
-	    statusCategory: any;
+	    statusCategory: StatusCategory;
 	
 	    static createFrom(source: any = {}) {
 	        return new Status(source);
@@ -1048,7 +991,7 @@ export namespace jira {
 	        this.iconUrl = source["iconUrl"];
 	        this.name = source["name"];
 	        this.id = source["id"];
-	        this.statusCategory = this.convertValues(source["statusCategory"], null);
+	        this.statusCategory = this.convertValues(source["statusCategory"], StatusCategory);
 	    }
 	
 		convertValues(a: any, classs: any, asMap: boolean = false): any {
@@ -1185,59 +1128,44 @@ export namespace jira {
 	}
 	export class IssueFields {
 	    expand?: string;
-	    // Go type: IssueType
-	    issuetype?: any;
+	    issuetype?: IssueType;
 	    project?: Project;
 	    environment?: string;
-	    // Go type: Resolution
-	    resolution?: any;
-	    // Go type: Priority
-	    priority?: any;
+	    resolution?: Resolution;
+	    priority?: Priority;
 	    // Go type: Time
 	    resolutiondate?: any;
 	    // Go type: Time
 	    created?: any;
 	    // Go type: Date
 	    duedate?: any;
-	    // Go type: Watches
-	    watches?: any;
-	    // Go type: User
-	    assignee?: any;
+	    watches?: Watches;
+	    assignee?: User;
 	    // Go type: Time
 	    updated?: any;
 	    description?: string;
 	    summary?: string;
-	    // Go type: User
-	    Creator?: any;
-	    // Go type: User
-	    reporter?: any;
+	    Creator?: User;
+	    reporter?: User;
 	    components?: Component[];
-	    // Go type: Status
-	    status?: any;
-	    // Go type: Progress
-	    progress?: any;
-	    // Go type: Progress
-	    aggregateprogress?: any;
-	    // Go type: TimeTracking
-	    timetracking?: any;
+	    status?: Status;
+	    progress?: Progress;
+	    aggregateprogress?: Progress;
+	    timetracking?: TimeTracking;
 	    timespent?: number;
 	    timeestimate?: number;
 	    timeoriginalestimate?: number;
-	    // Go type: Worklog
-	    worklog?: any;
+	    worklog?: Worklog;
 	    issuelinks?: IssueLink[];
-	    // Go type: Comments
-	    comment?: any;
+	    comment?: Comments;
 	    fixVersions?: FixVersion[];
 	    versions?: AffectsVersion[];
 	    labels?: string[];
 	    subtasks?: Subtasks[];
 	    attachment?: Attachment[];
-	    // Go type: Epic
-	    epic?: any;
+	    epic?: Epic;
 	    sprint?: Sprint;
-	    // Go type: Parent
-	    parent?: any;
+	    parent?: Parent;
 	    aggregatetimeoriginalestimate?: number;
 	    aggregatetimespent?: number;
 	    aggregatetimeestimate?: number;
@@ -1249,40 +1177,40 @@ export namespace jira {
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.expand = source["expand"];
-	        this.issuetype = this.convertValues(source["issuetype"], null);
+	        this.issuetype = this.convertValues(source["issuetype"], IssueType);
 	        this.project = this.convertValues(source["project"], Project);
 	        this.environment = source["environment"];
-	        this.resolution = this.convertValues(source["resolution"], null);
-	        this.priority = this.convertValues(source["priority"], null);
+	        this.resolution = this.convertValues(source["resolution"], Resolution);
+	        this.priority = this.convertValues(source["priority"], Priority);
 	        this.resolutiondate = this.convertValues(source["resolutiondate"], null);
 	        this.created = this.convertValues(source["created"], null);
 	        this.duedate = this.convertValues(source["duedate"], null);
-	        this.watches = this.convertValues(source["watches"], null);
-	        this.assignee = this.convertValues(source["assignee"], null);
+	        this.watches = this.convertValues(source["watches"], Watches);
+	        this.assignee = this.convertValues(source["assignee"], User);
 	        this.updated = this.convertValues(source["updated"], null);
 	        this.description = source["description"];
 	        this.summary = source["summary"];
-	        this.Creator = this.convertValues(source["Creator"], null);
-	        this.reporter = this.convertValues(source["reporter"], null);
+	        this.Creator = this.convertValues(source["Creator"], User);
+	        this.reporter = this.convertValues(source["reporter"], User);
 	        this.components = this.convertValues(source["components"], Component);
-	        this.status = this.convertValues(source["status"], null);
-	        this.progress = this.convertValues(source["progress"], null);
-	        this.aggregateprogress = this.convertValues(source["aggregateprogress"], null);
-	        this.timetracking = this.convertValues(source["timetracking"], null);
+	        this.status = this.convertValues(source["status"], Status);
+	        this.progress = this.convertValues(source["progress"], Progress);
+	        this.aggregateprogress = this.convertValues(source["aggregateprogress"], Progress);
+	        this.timetracking = this.convertValues(source["timetracking"], TimeTracking);
 	        this.timespent = source["timespent"];
 	        this.timeestimate = source["timeestimate"];
 	        this.timeoriginalestimate = source["timeoriginalestimate"];
-	        this.worklog = this.convertValues(source["worklog"], null);
+	        this.worklog = this.convertValues(source["worklog"], Worklog);
 	        this.issuelinks = this.convertValues(source["issuelinks"], IssueLink);
-	        this.comment = this.convertValues(source["comment"], null);
+	        this.comment = this.convertValues(source["comment"], Comments);
 	        this.fixVersions = this.convertValues(source["fixVersions"], FixVersion);
 	        this.versions = this.convertValues(source["versions"], AffectsVersion);
 	        this.labels = source["labels"];
 	        this.subtasks = this.convertValues(source["subtasks"], Subtasks);
 	        this.attachment = this.convertValues(source["attachment"], Attachment);
-	        this.epic = this.convertValues(source["epic"], null);
+	        this.epic = this.convertValues(source["epic"], Epic);
 	        this.sprint = this.convertValues(source["sprint"], Sprint);
-	        this.parent = this.convertValues(source["parent"], null);
+	        this.parent = this.convertValues(source["parent"], Parent);
 	        this.aggregatetimeoriginalestimate = source["aggregatetimeoriginalestimate"];
 	        this.aggregatetimespent = source["aggregatetimespent"];
 	        this.aggregatetimeestimate = source["aggregatetimeestimate"];
@@ -1311,12 +1239,9 @@ export namespace jira {
 	    id?: string;
 	    self?: string;
 	    key?: string;
-	    // Go type: IssueFields
-	    fields?: any;
-	    // Go type: IssueRenderedFields
-	    renderedFields?: any;
-	    // Go type: Changelog
-	    changelog?: any;
+	    fields?: IssueFields;
+	    renderedFields?: IssueRenderedFields;
+	    changelog?: Changelog;
 	    transitions?: Transition[];
 	    names?: {[key: string]: string};
 	
@@ -1330,9 +1255,9 @@ export namespace jira {
 	        this.id = source["id"];
 	        this.self = source["self"];
 	        this.key = source["key"];
-	        this.fields = this.convertValues(source["fields"], null);
-	        this.renderedFields = this.convertValues(source["renderedFields"], null);
-	        this.changelog = this.convertValues(source["changelog"], null);
+	        this.fields = this.convertValues(source["fields"], IssueFields);
+	        this.renderedFields = this.convertValues(source["renderedFields"], IssueRenderedFields);
+	        this.changelog = this.convertValues(source["changelog"], Changelog);
 	        this.transitions = this.convertValues(source["transitions"], Transition);
 	        this.names = source["names"];
 	    }
@@ -1354,6 +1279,65 @@ export namespace jira {
 		    }
 		    return a;
 		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	export class Board {
+	    id?: number;
+	    self?: string;
+	    name?: string;
+	    type?: string;
+	    filterId?: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new Board(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.self = source["self"];
+	        this.name = source["name"];
+	        this.type = source["type"];
+	        this.filterId = source["filterId"];
+	    }
+	}
+
+}
+
+export namespace jirahelper {
+	
+	export class LoginCredentials {
+	    url: string;
+	    emailAddress: string;
+	    token: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new LoginCredentials(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.url = source["url"];
+	        this.emailAddress = source["emailAddress"];
+	        this.token = source["token"];
+	    }
 	}
 
 }
