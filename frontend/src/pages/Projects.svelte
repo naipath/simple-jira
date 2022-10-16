@@ -11,18 +11,20 @@
         projects = (await RetrieveProjectsCached()) || []
         projects = await callTracker("RetrieveProjects", async () => await RetrieveProjects())
     }
-
 </script>
 
 <Page title="Projects" refresh={retrieveProjects}>
     <section class="mbs24">
         {#each groupArr(projects.sort((a, b) => a.name.localeCompare(b.name)), 2) as projectsWindow}
             <div class="flex">
-                <div class="column"><a href="/app/projects/{projectsWindow[0].key}">{projectsWindow[0].name}</a>
+                <div class="column">
+                    <img src="{projectsWindow[0].avatarUrls['48x48']}" height="24" width="24"/>
+                    <a href="/app/projects/{projectsWindow[0].key}">{projectsWindow[0].name}</a>
                 </div>
                 {#if projectsWindow.length > 1}
-                    <div class="column"><a
-                            href="/app/projects/{projectsWindow[1].key}">{projectsWindow[1].name}</a>
+                    <div class="column">
+                        <img src="{projectsWindow[1].avatarUrls['48x48']}" height="24" width="24"/>
+                        <a href="/app/projects/{projectsWindow[1].key}">{projectsWindow[1].name}</a>
                     </div>
                 {/if}
             </div>
