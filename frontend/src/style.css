@@ -28,3 +28,10 @@ Override the navigation bar defaults
         margin-block-end: initial !important;
     }
 }
+
+.header-nav-item a:hover,
+.header-nav-item a.active {
+    text-decoration: none;
+    border-bottom: 3px solid #63b9f7;
+    padding-bottom: 8px;
+}
