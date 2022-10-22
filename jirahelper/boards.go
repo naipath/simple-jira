@@ -1,6 +1,8 @@
 package jirahelper
 
 import (
+	"context"
+	"fmt"
 	"github.com/andygrunwald/go-jira"
 	"github.com/rs/zerolog/log"
 )
@@ -30,6 +32,7 @@ func (a *JiraHelper) RetrieveBoardDetails(boardId int) *jira.Board {
 	a.jiraCache.RetrieveBoardDetails[boardId] = board
 	return board
 }
+
 func (a *JiraHelper) RetrieveBoardDetailsCached(boardId int) *jira.Board {
 	return a.jiraCache.RetrieveBoardDetails[boardId]
 }
@@ -49,4 +52,27 @@ func (a *JiraHelper) GetBoards() []jira.Board {
 
 func (a *JiraHelper) GetBoardsCached() []jira.Board {
 	return a.jiraCache.GetBoards
+}
+
+func (a *JiraHelper) RetrieveBoardBacklog(boardId string) *SearchResult {
+	apiEndpoint := fmt.Sprintf("rest/agile/1.0/board/%v/backlog", boardId)
+	req, err := a.jiraClient.NewRequestWithContext(context.Background(), "GET", apiEndpoint, nil)
+	if err != nil {
+		log.Error().Err(err).Str("boardId", boardId).Msg("Error occurred when retrieving backlog for a board")
+		return nil
+	}
+	searchResults := new(SearchResult)
+	_, err = a.jiraClient.Do(req, searchResults)
+	if err != nil {
+		log.Error().Err(err).Str("boardId", boardId).Msg("Error occurred when retrieving backlog for a board")
+		return nil
+	}
+	return searchResults
+}
+
+type SearchResult struct {
+	Issues     []jira.Issue `json:"issues" structs:"issues"`
+	StartAt    int          `json:"startAt" structs:"startAt"`
+	MaxResults int          `json:"maxResults" structs:"maxResults"`
+	Total      int          `json:"total" structs:"total"`
 }

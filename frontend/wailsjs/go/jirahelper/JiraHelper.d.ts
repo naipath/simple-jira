@@ -18,6 +18,8 @@ export function IssueDetailsCached(arg1:string):Promise<jira.Issue>;
 
 export function LogOut():Promise<void>;
 
+export function RetrieveBoardBacklog(arg1:string):Promise<jirahelper.SearchResult>;
+
 export function RetrieveBoardDetails(arg1:number):Promise<jira.Board>;
 
 export function RetrieveBoardDetailsCached(arg1:number):Promise<jira.Board>;

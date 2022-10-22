@@ -30,6 +30,10 @@ export function LogOut() {
   return window['go']['jirahelper']['JiraHelper']['LogOut']();
 }
 
+export function RetrieveBoardBacklog(arg1) {
+  return window['go']['jirahelper']['JiraHelper']['RetrieveBoardBacklog'](arg1);
+}
+
 export function RetrieveBoardDetails(arg1) {
   return window['go']['jirahelper']['JiraHelper']['RetrieveBoardDetails'](arg1);
 }
