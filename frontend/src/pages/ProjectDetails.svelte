@@ -36,11 +36,12 @@
 {/if}
 
 {#if project}
-    <Page title="Project: {project.name}" refresh={retrieveProjectDetails} previousUrl={route.from}
+    <Page refresh={retrieveProjectDetails} previousUrl={route.from}
           favouriteName={"Project - " + project.name} favouriteUrl={route.url}>
-        <section class="mbs24">
-            <img src={project.avatarUrls["32x32"]} alt="logo"/>
-        </section>
+        <div slot="title">
+            <img src={project.avatarUrls["32x32"]} alt="logo" height="48" width="48" class="mie8">
+            {project.name}
+        </div>
 
         <section class="mbs24">
             {#each boards as board}

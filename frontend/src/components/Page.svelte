@@ -14,7 +14,7 @@
 </script>
 <main>
     <div style="display: flex; justify-content: space-between">
-        <h4>{title || ""}</h4>
+        <h4><slot name="title">{title || ""}</slot></h4>
         <div>
             <ButtonGroup>
                 {#if refresh}
