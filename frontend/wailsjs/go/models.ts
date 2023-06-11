@@ -1,134 +1,10 @@
 export namespace jira {
 	
-	export class ProjectCategory {
-	    self: string;
-	    id: string;
-	    name: string;
-	    description: string;
-	
-	    static createFrom(source: any = {}) {
-	        return new ProjectCategory(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.self = source["self"];
-	        this.id = source["id"];
-	        this.name = source["name"];
-	        this.description = source["description"];
-	    }
-	}
-	export class Version {
-	    self?: string;
-	    id?: string;
-	    name?: string;
-	    description?: string;
-	    archived?: boolean;
-	    released?: boolean;
-	    releaseDate?: string;
-	    userReleaseDate?: string;
-	    projectId?: number;
-	    startDate?: string;
-	
-	    static createFrom(source: any = {}) {
-	        return new Version(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.self = source["self"];
-	        this.id = source["id"];
-	        this.name = source["name"];
-	        this.description = source["description"];
-	        this.archived = source["archived"];
-	        this.released = source["released"];
-	        this.releaseDate = source["releaseDate"];
-	        this.userReleaseDate = source["userReleaseDate"];
-	        this.projectId = source["projectId"];
-	        this.startDate = source["startDate"];
-	    }
-	}
-	export class IssueType {
-	    self?: string;
-	    id?: string;
-	    description?: string;
-	    iconUrl?: string;
-	    name?: string;
-	    subtask?: boolean;
-	    avatarId?: number;
-	
-	    static createFrom(source: any = {}) {
-	        return new IssueType(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.self = source["self"];
-	        this.id = source["id"];
-	        this.description = source["description"];
-	        this.iconUrl = source["iconUrl"];
-	        this.name = source["name"];
-	        this.subtask = source["subtask"];
-	        this.avatarId = source["avatarId"];
-	    }
-	}
-	export class ProjectComponent {
-	    self: string;
-	    id: string;
-	    name: string;
-	    description: string;
-	    lead?: User;
-	    assigneeType: string;
-	    assignee: User;
-	    realAssigneeType: string;
-	    realAssignee: User;
-	    isAssigneeTypeValid: boolean;
-	    project: string;
-	    projectId: number;
-	
-	    static createFrom(source: any = {}) {
-	        return new ProjectComponent(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.self = source["self"];
-	        this.id = source["id"];
-	        this.name = source["name"];
-	        this.description = source["description"];
-	        this.lead = this.convertValues(source["lead"], User);
-	        this.assigneeType = source["assigneeType"];
-	        this.assignee = this.convertValues(source["assignee"], User);
-	        this.realAssigneeType = source["realAssigneeType"];
-	        this.realAssignee = this.convertValues(source["realAssignee"], User);
-	        this.isAssigneeTypeValid = source["isAssigneeTypeValid"];
-	        this.project = source["project"];
-	        this.projectId = source["projectId"];
-	    }
-	
-		convertValues(a: any, classs: any, asMap: boolean = false): any {
-		    if (!a) {
-		        return a;
-		    }
-		    if (a.slice) {
-		        return (a as any[]).map(elem => this.convertValues(elem, classs));
-		    } else if ("object" === typeof a) {
-		        if (asMap) {
-		            for (const key of Object.keys(a)) {
-		                a[key] = new classs(a[key]);
-		            }
-		            return a;
-		        }
-		        return new classs(a);
-		    }
-		    return a;
-		}
-	}
 	export class AvatarUrls {
-	    48x48?: string;
-	    24x24?: string;
-	    16x16?: string;
-	    32x32?: string;
+	    "48x48?"?: string;
+	    "24x24?"?: string;
+	    "16x16?"?: string;
+	    "32x32?"?: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new AvatarUrls(source);
@@ -136,10 +12,52 @@ export namespace jira {
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.48x48 = source["48x48"];
-	        this.24x24 = source["24x24"];
-	        this.16x16 = source["16x16"];
-	        this.32x32 = source["32x32"];
+	        this["48x48"] = source["48x48"];
+	        this["24x24"] = source["24x24"];
+	        this["16x16"] = source["16x16"];
+	        this["32x32"] = source["32x32"];
+	    }
+	}
+	export class Board {
+	    id?: number;
+	    self?: string;
+	    name?: string;
+	    type?: string;
+	    filterId?: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new Board(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.self = source["self"];
+	        this.name = source["name"];
+	        this.type = source["type"];
+	        this.filterId = source["filterId"];
+	    }
+	}
+	export class ChangelogItems {
+	    field: string;
+	    fieldtype: string;
+	    from: any;
+	    fromString: string;
+	    to: any;
+	    toString: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new ChangelogItems(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.field = source["field"];
+	        this.fieldtype = source["fieldtype"];
+	        this.from = source["from"];
+	        this.fromString = source["fromString"];
+	        this.to = source["to"];
+	        this.toString = source["toString"];
 	    }
 	}
 	export class User {
@@ -193,240 +111,6 @@ export namespace jira {
 		    }
 		    return a;
 		}
-	}
-	export class Project {
-	    expand?: string;
-	    self?: string;
-	    id?: string;
-	    key?: string;
-	    description?: string;
-	    lead?: User;
-	    components?: ProjectComponent[];
-	    issueTypes?: IssueType[];
-	    url?: string;
-	    email?: string;
-	    assigneeType?: string;
-	    versions?: Version[];
-	    name?: string;
-	    roles?: {[key: string]: string};
-	    avatarUrls?: AvatarUrls;
-	    projectCategory?: ProjectCategory;
-	
-	    static createFrom(source: any = {}) {
-	        return new Project(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.expand = source["expand"];
-	        this.self = source["self"];
-	        this.id = source["id"];
-	        this.key = source["key"];
-	        this.description = source["description"];
-	        this.lead = this.convertValues(source["lead"], User);
-	        this.components = this.convertValues(source["components"], ProjectComponent);
-	        this.issueTypes = this.convertValues(source["issueTypes"], IssueType);
-	        this.url = source["url"];
-	        this.email = source["email"];
-	        this.assigneeType = source["assigneeType"];
-	        this.versions = this.convertValues(source["versions"], Version);
-	        this.name = source["name"];
-	        this.roles = source["roles"];
-	        this.avatarUrls = this.convertValues(source["avatarUrls"], AvatarUrls);
-	        this.projectCategory = this.convertValues(source["projectCategory"], ProjectCategory);
-	    }
-	
-		convertValues(a: any, classs: any, asMap: boolean = false): any {
-		    if (!a) {
-		        return a;
-		    }
-		    if (a.slice) {
-		        return (a as any[]).map(elem => this.convertValues(elem, classs));
-		    } else if ("object" === typeof a) {
-		        if (asMap) {
-		            for (const key of Object.keys(a)) {
-		                a[key] = new classs(a[key]);
-		            }
-		            return a;
-		        }
-		        return new classs(a);
-		    }
-		    return a;
-		}
-	}
-	
-	export class Priority {
-	    self?: string;
-	    iconUrl?: string;
-	    name?: string;
-	    id?: string;
-	    statusColor?: string;
-	    description?: string;
-	
-	    static createFrom(source: any = {}) {
-	        return new Priority(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.self = source["self"];
-	        this.iconUrl = source["iconUrl"];
-	        this.name = source["name"];
-	        this.id = source["id"];
-	        this.statusColor = source["statusColor"];
-	        this.description = source["description"];
-	    }
-	}
-	export class StatusCategory {
-	    self: string;
-	    id: number;
-	    name: string;
-	    key: string;
-	    colorName: string;
-	
-	    static createFrom(source: any = {}) {
-	        return new StatusCategory(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.self = source["self"];
-	        this.id = source["id"];
-	        this.name = source["name"];
-	        this.key = source["key"];
-	        this.colorName = source["colorName"];
-	    }
-	}
-	export class Status {
-	    self: string;
-	    description: string;
-	    iconUrl: string;
-	    name: string;
-	    id: string;
-	    statusCategory: StatusCategory;
-	
-	    static createFrom(source: any = {}) {
-	        return new Status(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.self = source["self"];
-	        this.description = source["description"];
-	        this.iconUrl = source["iconUrl"];
-	        this.name = source["name"];
-	        this.id = source["id"];
-	        this.statusCategory = this.convertValues(source["statusCategory"], StatusCategory);
-	    }
-	
-		convertValues(a: any, classs: any, asMap: boolean = false): any {
-		    if (!a) {
-		        return a;
-		    }
-		    if (a.slice) {
-		        return (a as any[]).map(elem => this.convertValues(elem, classs));
-		    } else if ("object" === typeof a) {
-		        if (asMap) {
-		            for (const key of Object.keys(a)) {
-		                a[key] = new classs(a[key]);
-		            }
-		            return a;
-		        }
-		        return new classs(a);
-		    }
-		    return a;
-		}
-	}
-	export class TimeTracking {
-	    originalEstimate?: string;
-	    remainingEstimate?: string;
-	    timeSpent?: string;
-	    originalEstimateSeconds?: number;
-	    remainingEstimateSeconds?: number;
-	    timeSpentSeconds?: number;
-	
-	    static createFrom(source: any = {}) {
-	        return new TimeTracking(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.originalEstimate = source["originalEstimate"];
-	        this.remainingEstimate = source["remainingEstimate"];
-	        this.timeSpent = source["timeSpent"];
-	        this.originalEstimateSeconds = source["originalEstimateSeconds"];
-	        this.remainingEstimateSeconds = source["remainingEstimateSeconds"];
-	        this.timeSpentSeconds = source["timeSpentSeconds"];
-	    }
-	}
-	export class Sprint {
-	    id: number;
-	    name: string;
-	    // Go type: time.Time
-	    completeDate?: any;
-	    // Go type: time.Time
-	    endDate?: any;
-	    // Go type: time.Time
-	    startDate?: any;
-	    originBoardId: number;
-	    self: string;
-	    state: string;
-	
-	    static createFrom(source: any = {}) {
-	        return new Sprint(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.id = source["id"];
-	        this.name = source["name"];
-	        this.completeDate = this.convertValues(source["completeDate"], null);
-	        this.endDate = this.convertValues(source["endDate"], null);
-	        this.startDate = this.convertValues(source["startDate"], null);
-	        this.originBoardId = source["originBoardId"];
-	        this.self = source["self"];
-	        this.state = source["state"];
-	    }
-	
-		convertValues(a: any, classs: any, asMap: boolean = false): any {
-		    if (!a) {
-		        return a;
-		    }
-		    if (a.slice) {
-		        return (a as any[]).map(elem => this.convertValues(elem, classs));
-		    } else if ("object" === typeof a) {
-		        if (asMap) {
-		            for (const key of Object.keys(a)) {
-		                a[key] = new classs(a[key]);
-		            }
-		            return a;
-		        }
-		        return new classs(a);
-		    }
-		    return a;
-		}
-	}
-	export class ChangelogItems {
-	    field: string;
-	    fieldtype: string;
-	    from: any;
-	    fromString: string;
-	    to: any;
-	    toString: string;
-	
-	    static createFrom(source: any = {}) {
-	        return new ChangelogItems(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.field = source["field"];
-	        this.fieldtype = source["fieldtype"];
-	        this.from = source["from"];
-	        this.fromString = source["fromString"];
-	        this.to = source["to"];
-	        this.toString = source["toString"];
-	    }
 	}
 	export class ChangelogHistory {
 	    id: string;
@@ -494,15 +178,36 @@ export namespace jira {
 		    return a;
 		}
 	}
-	export class Board {
-	    id?: number;
-	    self?: string;
-	    name?: string;
+	
+	
+	export class CommentVisibility {
 	    type?: string;
-	    filterId?: number;
+	    value?: string;
 	
 	    static createFrom(source: any = {}) {
-	        return new Board(source);
+	        return new CommentVisibility(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.type = source["type"];
+	        this.value = source["value"];
+	    }
+	}
+	export class Comment {
+	    id?: string;
+	    self?: string;
+	    name?: string;
+	    author?: User;
+	    body?: string;
+	    updateAuthor?: User;
+	    updated?: string;
+	    created?: string;
+	    // Go type: CommentVisibility
+	    visibility?: any;
+	
+	    static createFrom(source: any = {}) {
+	        return new Comment(source);
 	    }
 	
 	    constructor(source: any = {}) {
@@ -510,22 +215,74 @@ export namespace jira {
 	        this.id = source["id"];
 	        this.self = source["self"];
 	        this.name = source["name"];
-	        this.type = source["type"];
-	        this.filterId = source["filterId"];
+	        this.author = this.convertValues(source["author"], User);
+	        this.body = source["body"];
+	        this.updateAuthor = this.convertValues(source["updateAuthor"], User);
+	        this.updated = source["updated"];
+	        this.created = source["created"];
+	        this.visibility = this.convertValues(source["visibility"], null);
 	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
 	}
-	export class Parent {
-	    id?: string;
-	    key?: string;
+	export class Comments {
+	    comments?: Comment[];
 	
 	    static createFrom(source: any = {}) {
-	        return new Parent(source);
+	        return new Comments(source);
 	    }
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.id = source["id"];
+	        this.comments = this.convertValues(source["comments"], Comment);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class EntityProperty {
+	    key: string;
+	    value: any;
+	
+	    static createFrom(source: any = {}) {
+	        return new EntityProperty(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.key = source["key"];
+	        this.value = source["value"];
 	    }
 	}
 	export class Epic {
@@ -549,6 +306,155 @@ export namespace jira {
 	        this.summary = source["summary"];
 	        this.done = source["done"];
 	    }
+	}
+	export class TransitionField {
+	    required: boolean;
+	
+	    static createFrom(source: any = {}) {
+	        return new TransitionField(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.required = source["required"];
+	    }
+	}
+	export class Transition {
+	    id: string;
+	    name: string;
+	    to: Status;
+	    fields: {[key: string]: TransitionField};
+	
+	    static createFrom(source: any = {}) {
+	        return new Transition(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.to = this.convertValues(source["to"], Status);
+	        this.fields = this.convertValues(source["fields"], TransitionField, true);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class IssueRenderedFields {
+	    resolutiondate?: string;
+	    created?: string;
+	    duedate?: string;
+	    updated?: string;
+	    comment?: Comments;
+	    description?: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new IssueRenderedFields(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.resolutiondate = source["resolutiondate"];
+	        this.created = source["created"];
+	        this.duedate = source["duedate"];
+	        this.updated = source["updated"];
+	        this.comment = this.convertValues(source["comment"], Comments);
+	        this.description = source["description"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class Parent {
+	    id?: string;
+	    key?: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new Parent(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.key = source["key"];
+	    }
+	}
+	export class Sprint {
+	    id: number;
+	    name: string;
+	    // Go type: time
+	    completeDate?: any;
+	    // Go type: time
+	    endDate?: any;
+	    // Go type: time
+	    startDate?: any;
+	    originBoardId: number;
+	    self: string;
+	    state: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new Sprint(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.completeDate = this.convertValues(source["completeDate"], null);
+	        this.endDate = this.convertValues(source["endDate"], null);
+	        this.startDate = this.convertValues(source["startDate"], null);
+	        this.originBoardId = source["originBoardId"];
+	        this.self = source["self"];
+	        this.state = source["state"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
 	}
 	export class Attachment {
 	    self?: string;
@@ -692,231 +598,6 @@ export namespace jira {
 	        this.startDate = source["startDate"];
 	    }
 	}
-	export class TransitionField {
-	    required: boolean;
-	
-	    static createFrom(source: any = {}) {
-	        return new TransitionField(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.required = source["required"];
-	    }
-	}
-	export class Transition {
-	    id: string;
-	    name: string;
-	    to: Status;
-	    fields: {[key: string]: TransitionField};
-	
-	    static createFrom(source: any = {}) {
-	        return new Transition(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.id = source["id"];
-	        this.name = source["name"];
-	        this.to = this.convertValues(source["to"], Status);
-	        this.fields = this.convertValues(source["fields"], TransitionField, true);
-	    }
-	
-		convertValues(a: any, classs: any, asMap: boolean = false): any {
-		    if (!a) {
-		        return a;
-		    }
-		    if (a.slice) {
-		        return (a as any[]).map(elem => this.convertValues(elem, classs));
-		    } else if ("object" === typeof a) {
-		        if (asMap) {
-		            for (const key of Object.keys(a)) {
-		                a[key] = new classs(a[key]);
-		            }
-		            return a;
-		        }
-		        return new classs(a);
-		    }
-		    return a;
-		}
-	}
-	export class CommentVisibility {
-	    type?: string;
-	    value?: string;
-	
-	    static createFrom(source: any = {}) {
-	        return new CommentVisibility(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.type = source["type"];
-	        this.value = source["value"];
-	    }
-	}
-	export class Comment {
-	    id?: string;
-	    self?: string;
-	    name?: string;
-	    author?: User;
-	    body?: string;
-	    updateAuthor?: User;
-	    updated?: string;
-	    created?: string;
-	    // Go type: CommentVisibility
-	    visibility?: any;
-	
-	    static createFrom(source: any = {}) {
-	        return new Comment(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.id = source["id"];
-	        this.self = source["self"];
-	        this.name = source["name"];
-	        this.author = this.convertValues(source["author"], User);
-	        this.body = source["body"];
-	        this.updateAuthor = this.convertValues(source["updateAuthor"], User);
-	        this.updated = source["updated"];
-	        this.created = source["created"];
-	        this.visibility = this.convertValues(source["visibility"], null);
-	    }
-	
-		convertValues(a: any, classs: any, asMap: boolean = false): any {
-		    if (!a) {
-		        return a;
-		    }
-		    if (a.slice) {
-		        return (a as any[]).map(elem => this.convertValues(elem, classs));
-		    } else if ("object" === typeof a) {
-		        if (asMap) {
-		            for (const key of Object.keys(a)) {
-		                a[key] = new classs(a[key]);
-		            }
-		            return a;
-		        }
-		        return new classs(a);
-		    }
-		    return a;
-		}
-	}
-	export class Comments {
-	    comments?: Comment[];
-	
-	    static createFrom(source: any = {}) {
-	        return new Comments(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.comments = this.convertValues(source["comments"], Comment);
-	    }
-	
-		convertValues(a: any, classs: any, asMap: boolean = false): any {
-		    if (!a) {
-		        return a;
-		    }
-		    if (a.slice) {
-		        return (a as any[]).map(elem => this.convertValues(elem, classs));
-		    } else if ("object" === typeof a) {
-		        if (asMap) {
-		            for (const key of Object.keys(a)) {
-		                a[key] = new classs(a[key]);
-		            }
-		            return a;
-		        }
-		        return new classs(a);
-		    }
-		    return a;
-		}
-	}
-	export class IssueRenderedFields {
-	    resolutiondate?: string;
-	    created?: string;
-	    duedate?: string;
-	    updated?: string;
-	    comment?: Comments;
-	    description?: string;
-	
-	    static createFrom(source: any = {}) {
-	        return new IssueRenderedFields(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.resolutiondate = source["resolutiondate"];
-	        this.created = source["created"];
-	        this.duedate = source["duedate"];
-	        this.updated = source["updated"];
-	        this.comment = this.convertValues(source["comment"], Comments);
-	        this.description = source["description"];
-	    }
-	
-		convertValues(a: any, classs: any, asMap: boolean = false): any {
-		    if (!a) {
-		        return a;
-		    }
-		    if (a.slice) {
-		        return (a as any[]).map(elem => this.convertValues(elem, classs));
-		    } else if ("object" === typeof a) {
-		        if (asMap) {
-		            for (const key of Object.keys(a)) {
-		                a[key] = new classs(a[key]);
-		            }
-		            return a;
-		        }
-		        return new classs(a);
-		    }
-		    return a;
-		}
-	}
-	export class Issue {
-	    expand?: string;
-	    id?: string;
-	    self?: string;
-	    key?: string;
-	    fields?: IssueFields;
-	    renderedFields?: IssueRenderedFields;
-	    changelog?: Changelog;
-	    transitions?: Transition[];
-	    names?: {[key: string]: string};
-	
-	    static createFrom(source: any = {}) {
-	        return new Issue(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.expand = source["expand"];
-	        this.id = source["id"];
-	        this.self = source["self"];
-	        this.key = source["key"];
-	        this.fields = this.convertValues(source["fields"], IssueFields);
-	        this.renderedFields = this.convertValues(source["renderedFields"], IssueRenderedFields);
-	        this.changelog = this.convertValues(source["changelog"], Changelog);
-	        this.transitions = this.convertValues(source["transitions"], Transition);
-	        this.names = source["names"];
-	    }
-	
-		convertValues(a: any, classs: any, asMap: boolean = false): any {
-		    if (!a) {
-		        return a;
-		    }
-		    if (a.slice) {
-		        return (a as any[]).map(elem => this.convertValues(elem, classs));
-		    } else if ("object" === typeof a) {
-		        if (asMap) {
-		            for (const key of Object.keys(a)) {
-		                a[key] = new classs(a[key]);
-		            }
-		            return a;
-		        }
-		        return new classs(a);
-		    }
-		    return a;
-		}
-	}
 	export class IssueLinkType {
 	    id?: string;
 	    self?: string;
@@ -978,20 +659,6 @@ export namespace jira {
 		    }
 		    return a;
 		}
-	}
-	export class EntityProperty {
-	    key: string;
-	    value: any;
-	
-	    static createFrom(source: any = {}) {
-	        return new EntityProperty(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.key = source["key"];
-	        this.value = source["value"];
-	    }
 	}
 	export class WorklogRecord {
 	    self?: string;
@@ -1084,6 +751,28 @@ export namespace jira {
 		    return a;
 		}
 	}
+	export class TimeTracking {
+	    originalEstimate?: string;
+	    remainingEstimate?: string;
+	    timeSpent?: string;
+	    originalEstimateSeconds?: number;
+	    remainingEstimateSeconds?: number;
+	    timeSpentSeconds?: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new TimeTracking(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.originalEstimate = source["originalEstimate"];
+	        this.remainingEstimate = source["remainingEstimate"];
+	        this.timeSpent = source["timeSpent"];
+	        this.originalEstimateSeconds = source["originalEstimateSeconds"];
+	        this.remainingEstimateSeconds = source["remainingEstimateSeconds"];
+	        this.timeSpentSeconds = source["timeSpentSeconds"];
+	    }
+	}
 	export class Progress {
 	    progress: number;
 	    total: number;
@@ -1099,6 +788,66 @@ export namespace jira {
 	        this.total = source["total"];
 	        this.percent = source["percent"];
 	    }
+	}
+	export class StatusCategory {
+	    self: string;
+	    id: number;
+	    name: string;
+	    key: string;
+	    colorName: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new StatusCategory(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.self = source["self"];
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.key = source["key"];
+	        this.colorName = source["colorName"];
+	    }
+	}
+	export class Status {
+	    self: string;
+	    description: string;
+	    iconUrl: string;
+	    name: string;
+	    id: string;
+	    statusCategory: StatusCategory;
+	
+	    static createFrom(source: any = {}) {
+	        return new Status(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.self = source["self"];
+	        this.description = source["description"];
+	        this.iconUrl = source["iconUrl"];
+	        this.name = source["name"];
+	        this.id = source["id"];
+	        this.statusCategory = this.convertValues(source["statusCategory"], StatusCategory);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
 	}
 	export class Component {
 	    self?: string;
@@ -1174,6 +923,28 @@ export namespace jira {
 		    return a;
 		}
 	}
+	export class Priority {
+	    self?: string;
+	    iconUrl?: string;
+	    name?: string;
+	    id?: string;
+	    statusColor?: string;
+	    description?: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new Priority(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.self = source["self"];
+	        this.iconUrl = source["iconUrl"];
+	        this.name = source["name"];
+	        this.id = source["id"];
+	        this.statusColor = source["statusColor"];
+	        this.description = source["description"];
+	    }
+	}
 	export class Resolution {
 	    self: string;
 	    id: string;
@@ -1190,6 +961,190 @@ export namespace jira {
 	        this.id = source["id"];
 	        this.description = source["description"];
 	        this.name = source["name"];
+	    }
+	}
+	export class ProjectCategory {
+	    self: string;
+	    id: string;
+	    name: string;
+	    description: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new ProjectCategory(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.self = source["self"];
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.description = source["description"];
+	    }
+	}
+	export class Version {
+	    self?: string;
+	    id?: string;
+	    name?: string;
+	    description?: string;
+	    archived?: boolean;
+	    released?: boolean;
+	    releaseDate?: string;
+	    userReleaseDate?: string;
+	    projectId?: number;
+	    startDate?: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new Version(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.self = source["self"];
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.description = source["description"];
+	        this.archived = source["archived"];
+	        this.released = source["released"];
+	        this.releaseDate = source["releaseDate"];
+	        this.userReleaseDate = source["userReleaseDate"];
+	        this.projectId = source["projectId"];
+	        this.startDate = source["startDate"];
+	    }
+	}
+	export class ProjectComponent {
+	    self: string;
+	    id: string;
+	    name: string;
+	    description: string;
+	    lead?: User;
+	    assigneeType: string;
+	    assignee: User;
+	    realAssigneeType: string;
+	    realAssignee: User;
+	    isAssigneeTypeValid: boolean;
+	    project: string;
+	    projectId: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new ProjectComponent(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.self = source["self"];
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.description = source["description"];
+	        this.lead = this.convertValues(source["lead"], User);
+	        this.assigneeType = source["assigneeType"];
+	        this.assignee = this.convertValues(source["assignee"], User);
+	        this.realAssigneeType = source["realAssigneeType"];
+	        this.realAssignee = this.convertValues(source["realAssignee"], User);
+	        this.isAssigneeTypeValid = source["isAssigneeTypeValid"];
+	        this.project = source["project"];
+	        this.projectId = source["projectId"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class Project {
+	    expand?: string;
+	    self?: string;
+	    id?: string;
+	    key?: string;
+	    description?: string;
+	    lead?: User;
+	    components?: ProjectComponent[];
+	    issueTypes?: IssueType[];
+	    url?: string;
+	    email?: string;
+	    assigneeType?: string;
+	    versions?: Version[];
+	    name?: string;
+	    roles?: {[key: string]: string};
+	    avatarUrls?: AvatarUrls;
+	    projectCategory?: ProjectCategory;
+	
+	    static createFrom(source: any = {}) {
+	        return new Project(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.expand = source["expand"];
+	        this.self = source["self"];
+	        this.id = source["id"];
+	        this.key = source["key"];
+	        this.description = source["description"];
+	        this.lead = this.convertValues(source["lead"], User);
+	        this.components = this.convertValues(source["components"], ProjectComponent);
+	        this.issueTypes = this.convertValues(source["issueTypes"], IssueType);
+	        this.url = source["url"];
+	        this.email = source["email"];
+	        this.assigneeType = source["assigneeType"];
+	        this.versions = this.convertValues(source["versions"], Version);
+	        this.name = source["name"];
+	        this.roles = source["roles"];
+	        this.avatarUrls = this.convertValues(source["avatarUrls"], AvatarUrls);
+	        this.projectCategory = this.convertValues(source["projectCategory"], ProjectCategory);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class IssueType {
+	    self?: string;
+	    id?: string;
+	    description?: string;
+	    iconUrl?: string;
+	    name?: string;
+	    subtask?: boolean;
+	    avatarId?: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new IssueType(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.self = source["self"];
+	        this.id = source["id"];
+	        this.description = source["description"];
+	        this.iconUrl = source["iconUrl"];
+	        this.name = source["name"];
+	        this.subtask = source["subtask"];
+	        this.avatarId = source["avatarId"];
 	    }
 	}
 	export class IssueFields {
@@ -1300,6 +1255,60 @@ export namespace jira {
 		    return a;
 		}
 	}
+	export class Issue {
+	    expand?: string;
+	    id?: string;
+	    self?: string;
+	    key?: string;
+	    fields?: IssueFields;
+	    renderedFields?: IssueRenderedFields;
+	    changelog?: Changelog;
+	    transitions?: Transition[];
+	    names?: {[key: string]: string};
+	
+	    static createFrom(source: any = {}) {
+	        return new Issue(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.expand = source["expand"];
+	        this.id = source["id"];
+	        this.self = source["self"];
+	        this.key = source["key"];
+	        this.fields = this.convertValues(source["fields"], IssueFields);
+	        this.renderedFields = this.convertValues(source["renderedFields"], IssueRenderedFields);
+	        this.changelog = this.convertValues(source["changelog"], Changelog);
+	        this.transitions = this.convertValues(source["transitions"], Transition);
+	        this.names = source["names"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -1334,7 +1343,7 @@ export namespace jirahelper {
 	    }
 	}
 	export class SearchResult {
-	    issues: Issue[];
+	    issues: jira.Issue[];
 	    startAt: number;
 	    maxResults: number;
 	    total: number;
@@ -1345,7 +1354,7 @@ export namespace jirahelper {
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.issues = this.convertValues(source["issues"], Issue);
+	        this.issues = this.convertValues(source["issues"], jira.Issue);
 	        this.startAt = source["startAt"];
 	        this.maxResults = source["maxResults"];
 	        this.total = source["total"];
